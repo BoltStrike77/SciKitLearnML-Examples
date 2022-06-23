@@ -44,12 +44,21 @@ hyperparameters = { 'randomforestregressor__max_features' : ['auto', 'sqrt', 'lo
                   'randomforestregressor__max_depth': [None, 5, 3, 1]}
 
 # cross validation pipeline with SciKit
-
 clf = GridSearchCV(pipeline, hyperparameters, cv=10)
 clf.fit(X_train, y_train)  # fit and tune model            
 
 print("\nBest Parameters:")
 print(clf.best_params_) # best params
 
-print("\nRefit pipline with better hyperparameters")
+print("\nRefit pipline with better hyperparameters:")
 print(clf.refit) # refit on best hyperparameters
+
+# using pipeline on test data
+y_pred = clf.predict(X_test)
+
+print("\nR Squared Score:")
+print(r2_score(y_test, y_pred))
+
+print("\nMean Squared Error:")
+print(mean_squared_error(y_test, y_pred))
+# results outputted
